@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users | Front-end</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
+
+      height: 100vh;
+      margin: auto;
+    }
+
+    li {
+      list-style: none;
+      font-size: 2rem;
+      font-family: 'Courier New', Courier, monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <main></main>
+</body>
+
+<script>
+
+  async function getUser() {
+    try {
+      const response = await fetch("http://localhost:3000/users");
+
+      const data = await response.json();
+
+      show(data);
+    } catch (error) {
+      console.log("error: ", error)
+    }
+  }
+
+  getUser();
+
+  function show(users) {
+    let output = "";
+
+    users.forEach((user) => {
+      output += `
+      <li>
+        <b>${user.name}</b> - ${user.email}
+      </li> <br>`;
+    });
+
+    document.querySelector("main").innerHTML = output;
+  }
+
+</script>
+
+</html>
